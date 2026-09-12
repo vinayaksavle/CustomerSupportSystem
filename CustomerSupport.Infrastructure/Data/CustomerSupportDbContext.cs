@@ -231,6 +231,33 @@ namespace CustomerSupport.Infrastructure.Data
                     CreatedAt = seedDate
                 }
             );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Name = "CRM Application",
+                    Description = "CRM Application",
+                    IsActive = true,
+                    CreatedAt = seedDate
+                },
+                new Product
+                {
+                    Id = 2,
+                    Name = "ECommerce Application",
+                    Description = "ECommerce Application",
+                    IsActive = true,
+                    CreatedAt = seedDate
+                },
+                new Product
+                {
+                    Id = 3,
+                    Name = "Accounting Application",
+                    Description = "Accounting Application",
+                    IsActive = true,
+                    CreatedAt = seedDate
+                }
+            );
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace CustomerSupport.Application.DTOs.Tickets
 {
+    // Ticket Id comes from Route data
+    // Customer Id or Support Executive Id comes from JWT token
     public sealed class AddTicketCommentRequestDTO
     {
         [Required]

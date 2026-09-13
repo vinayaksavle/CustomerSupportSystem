@@ -4,7 +4,7 @@ namespace CustomerSupport.Application.DTOs.Auth
 {
     public sealed class RefreshTokenRequestDTO
     {
-        [Required]
+        [Required(ErrorMessage = "Refresh token is required.")]
         public string RefreshToken { get; set; } = string.Empty;
     }
 }

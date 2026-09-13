@@ -5,7 +5,7 @@ namespace CustomerSupport.Application.DTOs.Tickets
     public sealed class TicketDetailsResponseDTO
     {
         public int Id { get; set; }
-        public string TicketNumber { get; set; } = string.Empty;
+        public string TicketNumber { get; set; } = null!;
         public string Subject { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int CustomerId { get; set; }

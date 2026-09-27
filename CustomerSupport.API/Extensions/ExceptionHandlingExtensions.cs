@@ -15,6 +15,8 @@ namespace CustomerSupport.API.Extensions
             // ASP.NET Core can pass that exception to GlobalExceptionHandler.
             services.AddExceptionHandler<GlobalExceptionHandler>();
 
+            services.AddProblemDetails(); // Register ProblemDetails middleware for standardized error responses.
+
             // Return IServiceCollection so that additional services
             // can be registered using method chaining.
             return services;

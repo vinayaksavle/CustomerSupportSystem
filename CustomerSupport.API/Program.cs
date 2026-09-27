@@ -43,6 +43,20 @@ namespace CustomerSupport.API
             // Authorization: Bearer <access-token>
             builder.Services.AddJwtAuthentication(builder.Configuration);
 
+            // Register Authorization and Current User services.
+            // This extension method registers:
+            // - ASP.NET Core Authorization
+            // - IHttpContextAccessor
+            // - ICurrentUserService -> CurrentUserService
+
+            // CurrentUserService allows the Application layer
+            // to access the authenticated User's:
+            // - UserId
+            // - FullName
+            // - Email
+            // - Role
+            // without directly depending on HttpContext.
+            builder.Services.AddApiAuthorization();
 
             var app = builder.Build();
 

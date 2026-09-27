@@ -98,6 +98,16 @@ namespace CustomerSupport.API.Extensions
                         // If the token expiration time has passed, authentication will fail.
                         ValidateLifetime = true,
 
+                        // Verify the token's digital signature.
+                        // This ensures that the token was generated
+                        // using our secret signing key and that its
+                        // contents were not modified after creation.
+                        ValidateIssuerSigningKey = true,
+
+                        // Use the same secret key that JwtTokenService
+                        // uses when signing Access Tokens.
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+
                         // Allow a small tolerance when validating
                         // time-based JWT claims.
                         //
@@ -112,16 +122,6 @@ namespace CustomerSupport.API.Extensions
                         // This tolerance helps handle small clock
                         // differences between systems.
                         ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes),
-
-                        // Verify the token's digital signature.
-                        // This ensures that the token was generated
-                        // using our secret signing key and that its
-                        // contents were not modified after creation.
-                        ValidateIssuerSigningKey = true,
-
-                        // Use the same secret key that JwtTokenService
-                        // uses when signing Access Tokens.
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
 
                         // Tell ASP.NET Core which claim represents the User's unique identifier and which claim represents the User's role(s).
                         // In our JWT we store UserId in ClaimTypes.NameIdentifier and UserRole in ClaimTypes.Role.

@@ -22,7 +22,18 @@ namespace CustomerSupport.API
                 builder.Configuration.GetConnectionString("CustomerSupportDBConnection")
                 ?? throw new InvalidOperationException("CustomerSupportDBConnection is not configured.");
 
-            builder.Services.AddInfrastructureServices(connectionString);
+            // Read the relative Attachment-storage folder from configuration.
+            var relativeAttachmentPath =
+                builder.Configuration["LocalFileStorage:TicketAttachmentsPath"]
+                ?? "Storage/TicketAttachments";
+
+            // Convert the relative folder into an absolute path under the API project.
+            // The database will still store only relative Attachment paths.
+            var localAttachmentRootPath = Path.GetFullPath(
+                Path.Combine(builder.Environment.ContentRootPath, relativeAttachmentPath));
+
+            // Pass the Local storage root to Infrastructure.
+            builder.Services.AddInfrastructureServices(connectionString, localAttachmentRootPath);
 
             // Register the application's global exception handler.
             // This allows unhandled exceptions from the application

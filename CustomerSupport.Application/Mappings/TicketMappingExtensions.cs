@@ -94,6 +94,11 @@ namespace CustomerSupport.Application.Mappings
                 CreatedAt = ticket.CreatedAt,
                 UpdatedAt = ticket.UpdatedAt,
 
+                Attachments = ticket.Attachments
+                    .OrderByDescending(attachment => attachment.CreatedAt)
+                    .Select(attachment => attachment.ToResponseDTO())
+                    .ToList(),
+
                 // Customers must never receive internal staff comments.
                 Comments =
                     ticket.Comments
@@ -143,6 +148,23 @@ namespace CustomerSupport.Application.Mappings
                 AssignedByUserName = $"{assignment.AssignedByUser.FirstName} {assignment.AssignedByUser.LastName}".Trim(),
                 AssignedAt = assignment.AssignedAt,
                 UnassignedAt = assignment.UnassignedAt
+            };
+        }
+
+        // Convert one TicketAttachment Entity into the safe API response DTO.
+        public static TicketAttachmentResponseDTO ToResponseDTO(this TicketAttachment attachment)
+        {
+            return new TicketAttachmentResponseDTO
+            {
+                Id = attachment.Id,
+                OriginalFileName = attachment.OriginalFileName,
+                ContentType = attachment.ContentType,
+                FileSizeInBytes = attachment.FileSizeInBytes,
+                UploadedByUserId = attachment.UploadedByUserId,
+                UploadedByUserName =
+                    $"{attachment.UploadedByUser.FirstName} " +
+                    $"{attachment.UploadedByUser.LastName}",
+                CreatedAt = attachment.CreatedAt
             };
         }
     }

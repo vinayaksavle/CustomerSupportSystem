@@ -14,6 +14,9 @@ namespace CustomerSupport.Application.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<ITicketAttachmentService, TicketAttachmentService>();
+            // Knowledge Base and FAQ Application Services.
+            services.AddScoped<IKnowledgeBaseService, KnowledgeBaseService>();
+            services.AddScoped<IFAQService, FAQService>();
 
             return services;
         }
